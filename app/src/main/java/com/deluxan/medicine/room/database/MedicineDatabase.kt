@@ -32,7 +32,7 @@ abstract class MedicineDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             MedicineDatabase::class.java,
-            ""
+            "medicine_db"
         ).build()
     }
 }

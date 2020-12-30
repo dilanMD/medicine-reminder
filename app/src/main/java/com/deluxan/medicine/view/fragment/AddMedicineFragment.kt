@@ -1,6 +1,7 @@
 package com.deluxan.medicine.view.fragment
 
 import android.app.TimePickerDialog
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.deluxan.medicine.R
+import com.deluxan.medicine.room.database.MedicineDatabase
+import com.deluxan.medicine.room.entity.Medicine
 import kotlinx.android.synthetic.main.fragment_add_medicine.*
 import kotlinx.android.synthetic.main.fragment_add_medicine.view.*
 import java.text.SimpleDateFormat
@@ -62,10 +66,28 @@ class AddMedicineFragment : Fragment(), View.OnClickListener {
                 timeError.visibility = TextView.VISIBLE
             }
 
+            val medicine = Medicine(nameString, selectedDays, selectedTime)
+            saveMedicine(medicine)
 
 //            val action = AddMedicineFragmentDirections.actionSaveMedicine()
 //            Navigation.findNavController(it).navigate(action)
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun saveMedicine(medicine: Medicine) {
+        class SaveMedicine : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg params: Void?): Void? {
+                MedicineDatabase(requireActivity()).getMedicineDao().addMedicine(medicine)
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                super.onPostExecute(result)
+                Toast.makeText(requireActivity(), "Medicine saved", Toast.LENGTH_SHORT).show()
+            }
+        }
+        SaveMedicine().execute()
     }
 
     private fun selectTime() {
