@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Medicine</string>
+    <string name="app_tagline">Application tagline - edit from res/values/strings.xml</string>
+
+    <!-- titles -->
+    <string name="title_auth">Authentication</string>
+
+    <!-- hints -->
+    <string name="email_hint">Enter valid email address</string>
+    <string name="pwd_hint">Enter correct password</string>
+
+    <!-- buttons -->
+    <string name="login_btn">Login</string>
+    <string name="register_btn">Register</string>
 </resources>
