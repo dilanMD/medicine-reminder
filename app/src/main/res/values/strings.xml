@@ -2,14 +2,30 @@
     <string name="app_name">Medicine</string>
     <string name="app_tagline">Application tagline - edit from res/values/strings.xml</string>
 
+    <!-- text view -->
+    <string name="add_medicine_days">Medicine Days</string>
+    <string name="add_medicine_reminder">Reminder</string>
+    <string name="add_medicine_time">00:00</string>
+
+    <!-- errors -->
+    <string name="name_error">Medicine name shouldn\'t be empty</string>
+    <string name="days_error">Please select atleast one day</string>
+    <string name="time_error">Please select the time</string>
+
     <!-- titles -->
     <string name="title_auth">Authentication</string>
 
     <!-- hints -->
     <string name="email_hint">Enter valid email address</string>
     <string name="pwd_hint">Enter correct password</string>
+    <string name="add_medicine_name_hint">Name of the medicine</string>
 
     <!-- buttons -->
     <string name="login_btn">Login</string>
     <string name="register_btn">Register</string>
+    <string name="toggle_time_picker1">Select Time</string>
+    <string name="toggle_time_picker2">Change Time</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

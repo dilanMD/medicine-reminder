@@ -27,8 +27,8 @@
             android:id="@+id/splash_loading"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            android:outlineSpotShadowColor="@color/colorPrimary"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
