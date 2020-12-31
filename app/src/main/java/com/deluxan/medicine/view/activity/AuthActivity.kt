@@ -3,7 +3,7 @@ package com.deluxan.medicine.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.deluxan.medicine.R
-import com.deluxan.medicine.view.adapter.pager.AuthPagerAdapter
+import com.deluxan.medicine.view.adapter.AuthPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_auth.*

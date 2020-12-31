@@ -12,8 +12,8 @@ import com.deluxan.medicine.room.entity.Medicine
 @Dao
 interface MedicineDao {
     @Insert
-    fun addMedicine(medicine: Medicine)
+    suspend fun addMedicine(medicine: Medicine)
 
-    @Query("SELECT * FROM medicine")
-    fun getAllMedicines(): List<Medicine>
+    @Query("SELECT * FROM medicine ORDER BY id DESC")
+    suspend fun getAllMedicines(): List<Medicine>
 }

@@ -1,4 +1,4 @@
-package com.deluxan.medicine.view.adapter.pager
+package com.deluxan.medicine.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
