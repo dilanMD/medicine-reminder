@@ -23,6 +23,9 @@
             android:name=".view.activity.AuthActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".view.activity.HomeActivity" />
+
+        <!-- broadcast receiver -->
+        <receiver android:name=".utils.helpers.ReminderBroadcast" />
     </application>
 
 </manifest>

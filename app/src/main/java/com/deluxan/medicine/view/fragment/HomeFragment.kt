@@ -1,5 +1,10 @@
 package com.deluxan.medicine.view.fragment
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.deluxan.medicine.R
 import com.deluxan.medicine.room.database.MedicineDatabase
+import com.deluxan.medicine.utils.helpers.ReminderBroadcast
+import com.deluxan.medicine.utils.helpers.createNotificationChannel
 import com.deluxan.medicine.utils.helpers.toast
 import com.deluxan.medicine.view.adapter.MedicinesAdapter
 import kotlinx.android.synthetic.main.fragment_home.*

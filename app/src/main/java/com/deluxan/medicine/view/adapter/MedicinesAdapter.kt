@@ -1,6 +1,9 @@
 package com.deluxan.medicine.view.adapter
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -11,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deluxan.medicine.R
 import com.deluxan.medicine.room.database.MedicineDatabase
 import com.deluxan.medicine.room.entity.Medicine
+import com.deluxan.medicine.utils.helpers.ReminderBroadcast
+import com.deluxan.medicine.utils.helpers.createNotificationChannel
 import com.deluxan.medicine.utils.helpers.toast
 import com.deluxan.medicine.view.activity.ViewMedicineActivity
 import com.deluxan.medicine.view.fragment.HomeFragmentDirections
@@ -25,6 +30,9 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
     RecyclerView.Adapter<MedicinesAdapter.MedicineViewHolder>() {
 
     private val TAG = MedicinesAdapter::class.java.name
+    private lateinit var intent: Intent
+    private lateinit var pendingIntent: PendingIntent
+    private lateinit var alarmManager: AlarmManager
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(
@@ -32,9 +40,17 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
             parent,
             false
         )
+
+        // Notification
+        createNotificationChannel(parent.context)
+        intent = Intent(parent.context, ReminderBroadcast::class.java)
+        pendingIntent = PendingIntent.getBroadcast(parent.context, 0, intent, 0)
+        alarmManager = parent.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         return MedicineViewHolder(inflater)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
         holder.view.medicine_name.text = medicines[position].name
 
@@ -53,6 +69,11 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
             )
             it.context.startActivity(intent)
         }
+
+        val time = System.currentTimeMillis()
+        val time10 = 1000 * 10
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time + time10, pendingIntent)
 
     }
 
