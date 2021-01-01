@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.deluxan.medicine.R
 import com.deluxan.medicine.room.database.MedicineDatabase
@@ -48,7 +49,7 @@ class AddMedicineFragment : BaseFragment(), View.OnClickListener {
 
         add_medicine_time.setOnClickListener(this)
 
-        float_save.setOnClickListener {
+        float_save.setOnClickListener { view ->
             val nameString = name.text.toString()
             val selectedDays = days.selectedDays
             val selectedTime = time.text.toString()
@@ -72,6 +73,9 @@ class AddMedicineFragment : BaseFragment(), View.OnClickListener {
                 context?.let {
                     MedicineDatabase(it).getMedicineDao().addMedicine(medicine)
                     it.toast(it.resources.getString(R.string.medicine_saved))
+
+                    val action = AddMedicineFragmentDirections.actionSaveMedicine()
+                    Navigation.findNavController(view).navigate(action)
                 }
             }
         }

@@ -23,11 +23,28 @@
     <!-- buttons -->
     <string name="login_btn">Login</string>
     <string name="register_btn">Register</string>
+    <string name="cancel_btn">Cancel</string>
     <string name="toggle_time_picker1">Select Time</string>
     <string name="toggle_time_picker2">Change Time</string>
 
     <!-- toast messages -->
     <string name="medicine_saved">Medicine saved to room database</string>
+    <string name="medicine_updated">Medicine updated</string>
+
+    <!-- alert dialog -->
+    <string name="delete_medicine_title">Are you sure?</string>
+    <string name="delete_medicine_message">You can\'t undo this operation</string>
+    <string name="delete_medicine_positive">Delete</string>
+    <string name="delete_medicine_negative">Cancel</string>
+
+    <!-- intent extra -->
+    <string name="view_medicine">VIEW_MEDICINE</string>
+
+    <!-- crud menu -->
+    <string name="menu_item_delete">Delete</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- room database -->
 

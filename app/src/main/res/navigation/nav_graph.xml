@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.deluxan.medicine.view.fragment.HomeFragment"
         android:label="Medicines"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_add_medicine"
             app:destination="@id/addMedicineFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/addMedicineFragment"
         android:name="com.deluxan.medicine.view.fragment.AddMedicineFragment"
         android:label="Add Medicine"
-        tools:layout="@layout/fragment_add_medicine" >
+        tools:layout="@layout/fragment_add_medicine">
         <action
             android:id="@+id/action_save_medicine"
             app:destination="@id/homeFragment" />

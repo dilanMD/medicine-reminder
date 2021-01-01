@@ -7,6 +7,7 @@ import androidx.room.TypeConverter
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.Clock
 
@@ -22,7 +23,7 @@ data class Medicine(
     val days: List<MaterialDayPicker.Weekday>,
     @ColumnInfo(name = "medicine_reminder")
     val reminder: String
-) {
+) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

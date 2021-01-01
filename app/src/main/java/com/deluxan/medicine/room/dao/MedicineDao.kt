@@ -1,8 +1,6 @@
 package com.deluxan.medicine.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.deluxan.medicine.room.entity.Medicine
 
 /**
@@ -16,4 +14,10 @@ interface MedicineDao {
 
     @Query("SELECT * FROM medicine ORDER BY id DESC")
     suspend fun getAllMedicines(): List<Medicine>
+
+    @Update
+    suspend fun updateMedicine(medicine: Medicine)
+
+    @Delete
+    fun deleteMedicine(medicine: Medicine)
 }

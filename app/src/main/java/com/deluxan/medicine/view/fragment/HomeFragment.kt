@@ -1,21 +1,24 @@
 package com.deluxan.medicine.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.deluxan.medicine.R
 import com.deluxan.medicine.room.database.MedicineDatabase
+import com.deluxan.medicine.utils.helpers.toast
 import com.deluxan.medicine.view.adapter.MedicinesAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.layout_medicine.*
+import kotlinx.android.synthetic.main.layout_medicine.view.*
 import kotlinx.coroutines.launch
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), View.OnClickListener {
     private val TAG = HomeFragment::class.java.name
 
     override fun onCreateView(
@@ -23,9 +26,7 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-
-
+        view?.float_add?.setOnClickListener(this)
         return view
     }
 
@@ -39,23 +40,20 @@ class HomeFragment : BaseFragment() {
         launch {
             context?.let {
                 val medicine = MedicineDatabase(it).getMedicineDao().getAllMedicines()
-
                 medicines_list.adapter = MedicinesAdapter(medicine)
             }
         }
+    }
 
-        float_add.setOnClickListener {
-            val action = HomeFragmentDirections.actionAddMedicine()
-            Navigation.findNavController(it).navigate(action)
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.float_add -> redirectToAddFragment(v)
         }
     }
 
-    private fun editMedicine() {
-        Log.i(TAG, "Edit menu clicked")
-    }
-
-    private fun deleteMedicine() {
-        Log.i(TAG, "Delete menu clicked")
+    private fun redirectToAddFragment(view: View) {
+        val action = HomeFragmentDirections.actionAddMedicine()
+        Navigation.findNavController(view).navigate(action)
     }
 
 }
