@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.deluxan.medicine">
 
+    <uses-permission android:name="android.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.ViewMedicineActivity"></activity>
+        <activity android:name=".view.activity.NotifyActivity"></activity>
+        <activity android:name=".view.activity.ViewMedicineActivity" />
         <activity
             android:name=".view.activity.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
@@ -22,10 +25,11 @@
         <activity
             android:name=".view.activity.AuthActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity android:name=".view.activity.HomeActivity" />
-
-        <!-- broadcast receiver -->
-        <receiver android:name=".utils.helpers.ReminderBroadcast" />
+        <activity android:name=".view.activity.HomeActivity" /> <!-- broadcast receiver -->
+        <receiver
+            android:name=".utils.helpers.ReminderBroadcast"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

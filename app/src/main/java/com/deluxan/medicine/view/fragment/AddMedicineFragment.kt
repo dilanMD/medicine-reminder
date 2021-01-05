@@ -55,27 +55,28 @@ class AddMedicineFragment : BaseFragment(), View.OnClickListener {
             val selectedTime = time.text.toString()
 
             // Validation
-            if (nameString.isEmpty()) {
-                name.error = resources.getString(R.string.name_error)
-                name.requestFocus()
-            }
+            when {
+                nameString.isEmpty() -> {
+                    name.error = resources.getString(R.string.name_error)
+                    name.requestFocus()
+                }
+                selectedDays.isEmpty() -> {
+                    daysError.visibility = TextView.VISIBLE
+                }
+                selectedTime == "00:00" -> {
+                    timeError.visibility = TextView.VISIBLE
+                }
+                else -> {
+                    launch {
+                        val medicine = Medicine(nameString, selectedDays, selectedTime)
+                        context?.let {
+                            MedicineDatabase(it).getMedicineDao().addMedicine(medicine)
+                            it.toast(it.resources.getString(R.string.medicine_saved))
 
-            if (selectedDays.isEmpty()) {
-                daysError.visibility = TextView.VISIBLE
-            }
-
-            if (selectedTime == "00:00") {
-                timeError.visibility = TextView.VISIBLE
-            }
-
-            launch {
-                val medicine = Medicine(nameString, selectedDays, selectedTime)
-                context?.let {
-                    MedicineDatabase(it).getMedicineDao().addMedicine(medicine)
-                    it.toast(it.resources.getString(R.string.medicine_saved))
-
-                    val action = AddMedicineFragmentDirections.actionSaveMedicine()
-                    Navigation.findNavController(view).navigate(action)
+                            val action = AddMedicineFragmentDirections.actionSaveMedicine()
+                            Navigation.findNavController(view).navigate(action)
+                        }
+                    }
                 }
             }
         }

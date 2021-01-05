@@ -2,25 +2,26 @@ package com.deluxan.medicine.view.adapter
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.deluxan.medicine.R
-import com.deluxan.medicine.room.database.MedicineDatabase
 import com.deluxan.medicine.room.entity.Medicine
 import com.deluxan.medicine.utils.helpers.ReminderBroadcast
 import com.deluxan.medicine.utils.helpers.createNotificationChannel
-import com.deluxan.medicine.utils.helpers.toast
 import com.deluxan.medicine.view.activity.ViewMedicineActivity
-import com.deluxan.medicine.view.fragment.HomeFragmentDirections
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.layout_medicine.view.*
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 /**
  * Created by Dilan M Deluxan on 31-Dec-20 AD at 12:19 PM
@@ -30,9 +31,6 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
     RecyclerView.Adapter<MedicinesAdapter.MedicineViewHolder>() {
 
     private val TAG = MedicinesAdapter::class.java.name
-    private lateinit var intent: Intent
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var alarmManager: AlarmManager
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(
@@ -41,15 +39,12 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
             false
         )
 
-        // Notification
-        createNotificationChannel(parent.context)
-        intent = Intent(parent.context, ReminderBroadcast::class.java)
-        pendingIntent = PendingIntent.getBroadcast(parent.context, 0, intent, 0)
-        alarmManager = parent.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
 
         return MedicineViewHolder(inflater)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
         holder.view.medicine_name.text = medicines[position].name
@@ -70,10 +65,30 @@ class MedicinesAdapter(private val medicines: List<Medicine>) :
             it.context.startActivity(intent)
         }
 
-        val time = System.currentTimeMillis()
-        val time10 = 1000 * 10
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time + time10, pendingIntent)
+
+        for (medicine in medicines) {
+            val date = LocalDateTime.now()
+            var dateString = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            dateString = dateString.dropLast(8)
+
+            var time = medicines[position].reminder
+            time = time.dropLast(3)
+
+            val dateTime = "$dateString$time:00"
+
+            val localDateTime = LocalDateTime.parse(
+                dateTime,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            )
+//            val notifyTime = localDateTime
+//                .atZone(ZoneId.systemDefault())
+//                .toInstant().toEpochMilli()
+
+
+
+            Log.i(TAG, dateTime)
+        }
 
     }
 
