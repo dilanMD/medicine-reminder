@@ -34,6 +34,11 @@ class ViewMedicineActivity : AppCompatActivity() {
             view_medicine_days.text = "${view_medicine_days.text} $day"
         }
 
+        back_to_lists.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
         delete_medicine.setOnClickListener {
             medicine?.let { it1 -> deleteAlert(it1, this) }
         }
